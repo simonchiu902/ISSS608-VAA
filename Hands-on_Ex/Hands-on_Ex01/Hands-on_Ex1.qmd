@@ -21,6 +21,7 @@ exam_data<- read_csv('data/Exam_data.csv')
 ```
 
 ## Plotting a simple bar chart
+
 echo: false can show only graph, while eval: false can show only code
 
 ```{r}
