@@ -147,13 +147,13 @@ p3 <- ggplot(data=exam_data,
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
 
--   \"+\" Two-Column Layout,
+-   "+" Two-Column Layout,
 
--   \"/\" Two-Row Layout,
+-   "/" Two-Row Layout,
 
--   \"\|\" operator to place the plots beside each other,
+-   "\|" operator to place the plots beside each other,
 
--   \"()\" operator the define the sequence of the plotting.
+-   "()" operator the define the sequence of the plotting.
 
 ```{r}
 p1+p2
