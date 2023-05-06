@@ -1,0 +1,34 @@
+---
+title: "Hands-on_Ex04"
+editor: visual
+---
+
+# 1.Getting Start
+
+1.1 load packages
+
+```{r}
+pacman::p_load(ggstatsplot, tidyverse)
+```
+
+1.2 load data
+
+```{r}
+exam<- read_csv('data/Exam_data.csv', show_col_types = FALSE)
+```
+
+# 2.**ggstatsplot**
+
+ggstatsplot is an extension of [**ggplot2**](https://ggplot2.tidyverse.org/) package for creating graphics with details from statistical tests included in the information-rich plots themselves.
+
+```{r}
+set.seed(1234)
+
+gghistostats(
+  data = exam,
+  x = ENGLISH,
+  type = "bayes",
+  test.value = 60,
+  xlab = "English scores"
+)
+```

@@ -1,0 +1,104 @@
+---
+title: "In-class_Ex04"
+date: "6 May 2023"
+today_date: "'r Sys.Date()'"
+execute: 
+  warning: false
+  echo: true
+  eval: true
+editor: visual
+---
+
+# Install Packages
+
+-   rstatix: perform statistic tests and store the result in tabulate form instead of list conventionally
+
+-   gt: create distribution statistic table
+
+-   patchwork: combine multiple plots into a single plot or arrange them in a grid layout
+
+```{r}
+pacman::p_load(rstatix, gt, patchwork, tidyverse)
+```
+
+# Read Data
+
+```{r}
+exam_data<- read_csv('data/Exam_data.csv')
+```
+
+# QQplot
+
+If the data is normally distributed, the points will lie on a straight diagonal red line.
+
+::: panel-tabset
+## The plot
+
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+ggplot(exam_data,
+       aes(sample=ENGLISH))+
+  stat_qq()+
+  stat_qq_line(col='red')
+```
+
+## The plot
+
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+ggplot(exam_data,
+       aes(sample=ENGLISH))+
+  stat_qq()+
+  stat_qq_line(col='red')
+```
+:::
+
+::: callout-note
+we can see that the points deviate significantly from the straight diagonal line. This is a clear indication that the set of data is not normally distributed.
+:::
+
+::: panel-tabset
+## The plot
+
+```{r}
+#| echo: false
+qq<- ggplot(exam_data,
+            aes(sample=ENGLISH))+
+  stat_qq()+
+  stat_qq_line()
+
+sw_t<- exam_data %>%
+  shapiro_test(ENGLISH) %>%
+  gt()
+
+tmp<- tempfile(fileext = '.png')
+gtsave(sw_t, tmp)
+table_png<- png::readPNG(tmp, native = TRUE)
+
+qq+table_png
+```
+
+## The code
+
+```{r}
+#| eval: false
+qq<- ggplot(exam_data,
+            aes(sample=ENGLISH))+
+  stat_qq()+
+  stat_qq_line()
+
+sw_t<- exam_data %>%
+  shapiro_test(ENGLISH) %>%
+  gt()
+
+tmp <- tempfile(fileext = '.png')
+gtsave(sw_t, tmp)
+table_png <- png::readPNG(tmp, native = TRUE)
+
+qq+table_png
+```
+:::
