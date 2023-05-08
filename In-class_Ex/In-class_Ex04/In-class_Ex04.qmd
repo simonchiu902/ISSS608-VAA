@@ -44,10 +44,10 @@ ggplot(exam_data,
   stat_qq_line(col='red')
 ```
 
-## The plot
+## The code
 
 ```{r}
-#| echo: false
+#| eval: false
 #| fig-width: 4
 #| fig-height: 4
 ggplot(exam_data,
