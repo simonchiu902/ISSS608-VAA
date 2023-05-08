@@ -32,3 +32,78 @@ gghistostats(
   xlab = "English scores"
 )
 ```
+
+# 3.Two-sample mean test: *ggbetweenstats()*
+
+In the code chunk below, [*ggbetweenstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for two-sample mean test of Maths scores by gender.
+
+```{r}
+ggbetweenstats(
+  data = exam,
+  x = GENDER, 
+  y = MATHS,
+  type = "np",
+  messages = FALSE
+)
+```
+
+# 4.Oneway ANOVA Test: *ggbetweenstats()* method
+
+-   mean.ci = TRUE: Includes confidence intervals for the group means in the plot.
+
+-   pairwise.comparisons = TRUE: Calculates pairwise comparisons between groups.
+
+-   pairwise.display:
+
+    -   \"ns\" → only non-significant
+
+    -   \"s\" → only significant
+
+    -   \"all\" → everything
+
+-   p.adjust.method = "fdr": Applies the false discovery rate (FDR) adjustment method to the p-values. In the context of hypothesis testing, when conducting multiple statistical tests simultaneously, such as in the case of comparing multiple groups or variables, the probability of observing false positives (rejecting the null hypothesis when it is true) increases.
+
+```{r}
+ggbetweenstats(
+  data = exam,
+  x = RACE, 
+  y = ENGLISH,
+  type = "p",
+  mean.ci = TRUE, 
+  pairwise.comparisons = TRUE, 
+  pairwise.display = "s",
+  p.adjust.method = "fdr",
+  messages = FALSE
+)
+```
+
+# 5.Significant Test of Correlation: *ggscatterstats()*
+
+```{r}
+ggscatterstats(
+  data = exam,
+  x = MATHS,
+  y = ENGLISH,
+  marginal = FALSE,
+  )
+```
+
+# 6.Significant Test of Association (Depedence) : *ggbarstats()* methods
+
+In the code chunk below, the Maths scores is binned into a 4-class variable by using [*cut()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cut).
+
+```{r}
+exam1 <- exam %>% 
+  mutate(MATHS_bins = 
+           cut(MATHS, 
+               breaks = c(0,60,75,85,100))
+)
+```
+
+In this code chunk below [*ggbarstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbarstats.html) is used to build a visual for Significant Test of Association
+
+```{r}
+ggbarstats(exam1, 
+           x = MATHS_bins, 
+           y = GENDER)
+```
